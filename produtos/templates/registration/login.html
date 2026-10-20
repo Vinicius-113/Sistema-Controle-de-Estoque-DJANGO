@@ -1,73 +1,293 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Entrar - Controle de Estoque</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Controle de Estoque</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
+
+    <style>
+        :root {
+            --verde-escuro: #123d2b;
+            --verde: #198754;
+            --verde-claro: #eaf5ee;
+            --texto: #24352c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f6f4;
+            color: var(--texto);
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 16px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 960px;
+            min-height: 560px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(18, 61, 43, 0.12);
+        }
+
+        .login-banner {
+            background: var(--verde-escuro);
+            color: white;
+            padding: 52px 42px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .brand-icon {
+            display: inline-flex;
+            width: 42px;
+            height: 42px;
+            margin-right: 10px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.14);
+            font-size: 23px;
+        }
+
+        .banner-content h1 {
+            font-size: clamp(30px, 3vw, 42px);
+            font-weight: 750;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .banner-content p {
+            color: #d3e5d9;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .banner-footer {
+            color: #c2d8ca;
+            font-size: 13px;
+        }
+
+        .login-form-area {
+            padding: 52px 42px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-form-area h2 {
+            font-weight: 750;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #718078;
+            margin-bottom: 32px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            min-height: 49px;
+            border: 1px solid #dce5df;
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .form-control:focus {
+            border-color: var(--verde);
+            box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+        }
+
+        .btn-login {
+            min-height: 49px;
+            background: var(--verde);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-login:hover {
+            background: #146c43;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .help-text {
+            color: #78857d;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .alert {
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .login-card {
+                grid-template-columns: 1fr;
+                max-width: 440px;
+            }
+
+            .login-banner {
+                padding: 28px;
+                min-height: 200px;
+                gap: 28px;
+            }
+
+            .banner-content h1 {
+                font-size: 28px;
+            }
+
+            .banner-footer {
+                display: none;
+            }
+
+            .login-form-area {
+                padding: 32px 26px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-light">
 
-<div class="container min-vh-100 d-flex align-items-center justify-content-center">
-    <div class="card shadow-sm p-4 w-100" style="max-width: 420px;">
-        <h1 class="h3 text-center mb-2">Controle de Estoque</h1>
-        <p class="text-muted text-center mb-4">Entre na sua conta</p>
+<body>
+    <main class="login-container">
+        <div class="login-card">
 
-        {% if form.errors %}
-            <div class="alert alert-danger">
-                Usuário ou senha inválidos. Tente novamente.
-            </div>
-        {% endif %}
-
-        {% if next %}
-            {% if user.is_authenticated %}
-                <div class="alert alert-warning">
-                    Sua conta não tem permissão para acessar essa página.
+            <section class="login-banner">
+                <div class="brand">
+                    <span class="brand-icon">📦</span>
+                    Controle de Estoque
                 </div>
-            {% endif %}
-        {% endif %}
 
-        <form method="post">
-            {% csrf_token %}
+                <div class="banner-content">
+                    <h1>Organize seu estoque. Simplifique sua rotina.</h1>
 
-            <div class="mb-3">
-                <label for="id_username" class="form-label">Usuário</label>
-                <input
-                    type="text"
-                    name="username"
-                    id="id_username"
-                    class="form-control"
-                    autocomplete="username"
-                    required
-                    autofocus
-                >
-            </div>
+                    <p>
+                        Acesse sua conta para acompanhar seus produtos,
+                        controlar quantidades e manter seu estoque organizado.
+                    </p>
+                </div>
 
-            <div class="mb-3">
-                <label for="id_password" class="form-label">Senha</label>
-                <input
-                    type="password"
-                    name="password"
-                    id="id_password"
-                    class="form-control"
-                    autocomplete="current-password"
-                    required
-                >
-            </div>
+                <div class="banner-footer">
+                    Gestão simples, prática e eficiente.
+                </div>
+            </section>
 
-            <input type="hidden" name="next" value="{{ next }}">
+            <section class="login-form-area">
+                <h2>Bem-vindo!</h2>
+                <p class="subtitle">Entre com seus dados para continuar.</p>
 
-            <button type="submit" class="btn btn-primary w-100">
-                Entrar
-            </button>
-        </form>
-    </div>
-</div>
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Usuário ou senha incorretos. Verifique seus dados e tente novamente.
+                    </div>
+                {% endif %}
 
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <div class="alert alert-warning">
+                            Sua conta não tem permissão para acessar essa página.
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            Entre na sua conta para continuar.
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <input
+                        type="hidden"
+                        name="next"
+                        value="{{ next }}"
+                    >
+
+                    <div class="mb-4">
+                        <label for="id_username" class="form-label">
+                            Usuário
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            id="id_username"
+                            class="form-control"
+                            placeholder="Digite seu usuário"
+                            autocomplete="username"
+                            required
+                            autofocus
+                        >
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_password" class="form-label">
+                            Senha
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            id="id_password"
+                            class="form-control"
+                            placeholder="Digite sua senha"
+                            autocomplete="current-password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn btn-login w-100">
+                        Entrar na minha conta
+                    </button>
+                </form>
+
+                <p class="help-text">
+                    Sistema de Controle de Estoque
+                </p>
+            </section>
+
+        </div>
+    </main>
 </body>
 </html>
