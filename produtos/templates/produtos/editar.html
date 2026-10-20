@@ -3,8 +3,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar produto</title>
 
     <link
@@ -12,12 +11,17 @@
         rel="stylesheet"
     >
 </head>
+
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-primary">
+<nav class="navbar navbar-dark bg-success">
     <div class="container">
-        <a class="navbar-brand" href="/">
-            Sistema de Controle de Estoque
+        <a class="navbar-brand" href="{% url 'produtos:home' %}">
+            Controle de Estoque
+        </a>
+
+        <a href="{% url 'produtos:lista' %}" class="btn btn-outline-light">
+            Meus produtos
         </a>
     </div>
 </nav>
@@ -25,38 +29,19 @@
 <main class="container py-5">
     <div class="card shadow-sm mx-auto" style="max-width: 700px;">
         <div class="card-body p-4">
-            <h1 class="h3 mb-4">
-                Editar produto: {{ produto.nome }}
-            </h1>
+            <h1 class="mb-4">Editar produto</h1>
 
             <form method="post">
                 {% csrf_token %}
 
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label
-                            for="{{ field.id_for_label }}"
-                            class="form-label"
-                        >
-                            {{ field.label }}
-                        </label>
+                {{ form.as_p }}
 
-                        {{ field }}
-
-                        {% for error in field.errors %}
-                            <div class="text-danger small">
-                                {{ error }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary">
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-success">
                         Salvar alterações
                     </button>
 
-                    <a href="/" class="btn btn-outline-secondary">
+                    <a href="{% url 'produtos:lista' %}" class="btn btn-secondary">
                         Cancelar
                     </a>
                 </div>

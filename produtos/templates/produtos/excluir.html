@@ -3,8 +3,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excluir produto</title>
 
     <link
@@ -12,12 +11,13 @@
         rel="stylesheet"
     >
 </head>
+
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-primary">
+<nav class="navbar navbar-dark bg-success">
     <div class="container">
-        <a class="navbar-brand" href="/">
-            Sistema de Controle de Estoque
+        <a class="navbar-brand" href="{% url 'produtos:home' %}">
+            Controle de Estoque
         </a>
     </div>
 </nav>
@@ -25,7 +25,7 @@
 <main class="container py-5">
     <div class="card shadow-sm mx-auto" style="max-width: 600px;">
         <div class="card-body p-4">
-            <h1 class="h3 text-danger mb-3">Excluir produto</h1>
+            <h1 class="text-danger">Excluir produto</h1>
 
             <p>
                 Tem certeza de que deseja excluir o produto
@@ -33,20 +33,21 @@
             </p>
 
             <p class="text-muted">
-                Essa ação é definitiva e não poderá ser desfeita
-                pelo sistema.
+                Essa ação não poderá ser desfeita.
             </p>
 
             <form method="post">
                 {% csrf_token %}
 
-                <button type="submit" class="btn btn-danger">
-                    Sim, excluir
-                </button>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger">
+                        Sim, excluir
+                    </button>
 
-                <a href="/" class="btn btn-outline-secondary">
-                    Cancelar
-                </a>
+                    <a href="{% url 'produtos:lista' %}" class="btn btn-secondary">
+                        Cancelar
+                    </a>
+                </div>
             </form>
         </div>
     </div>
