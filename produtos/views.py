@@ -84,3 +84,7 @@ def excluir_produto(request, produto_id):
         "produtos/excluir.html",
         {"produto": produto},
     )
+
+@login_required
+def home(request):
+    return render(request, "produtos/home.html")
